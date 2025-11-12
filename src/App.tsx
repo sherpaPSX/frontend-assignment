@@ -1,6 +1,9 @@
 import {Helmet} from 'react-helmet-async';
 import {useTranslation} from 'react-i18next';
 import {Welcome} from './pages/Welcome';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   const {i18n, t} = useTranslation();
@@ -14,11 +17,9 @@ function App() {
       >
         <meta name="description" content={t('app.description')} />
       </Helmet>
-
-      {/*
-       * start from here
-       */}
-      <Welcome />
+      <QueryClientProvider client={queryClient}>
+        <Welcome />
+      </QueryClientProvider>
     </>
   );
 }
