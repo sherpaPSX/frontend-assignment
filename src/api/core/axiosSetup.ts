@@ -1,6 +1,6 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { OpenAPI } from './OpenAPI';
-import { request as originalRequest } from './request';
+import axios, {AxiosInstance} from 'axios';
+import {OpenAPI} from './OpenAPI';
+import {request as originalRequest} from './request';
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: OpenAPI.BASE,
@@ -9,7 +9,7 @@ export const axiosInstance: AxiosInstance = axios.create({
 const AUTH_EXCLUDED_URLS = ['/login', '/register', '/refresh-token'];
 
 axiosInstance.interceptors.request.use((config) => {
-  if (!AUTH_EXCLUDED_URLS.some(url => config.url?.includes(url))) {
+  if (!AUTH_EXCLUDED_URLS.some((url) => config.url?.includes(url))) {
     const token = localStorage.getItem('token');
     if (token) {
       config.headers?.set?.('Authorization', `Bearer ${token}`);
@@ -18,7 +18,9 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-
-export const request = <T>(config: typeof OpenAPI, options: Parameters<typeof originalRequest>[1]) => {
+export const request = <T>(
+  config: typeof OpenAPI,
+  options: Parameters<typeof originalRequest>[1]
+) => {
   return originalRequest<T>(config, options, axiosInstance);
 };
