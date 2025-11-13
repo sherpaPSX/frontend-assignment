@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import {TodosPage, LoginPage, RegistrationPage} from './pages';
+import {TodosPage, LoginPage, RegistrationPage, EditTodoPage} from './pages';
 import {Layout, LoginLayout} from './components';
 import {useAuthStore} from './authStore';
 import {CreateTodoPage} from './pages/CreateTodoPage';
@@ -20,8 +20,8 @@ export const AppRouter = () => {
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route index element={<TodosPage />} />
-          <Route path="create" element={<CreateTodoPage />} />
-          <Route path="edit/:id" element={<div>Edit Todo</div>} />
+          <Route path="todo/new" element={<CreateTodoPage />} />
+          <Route path="todo/:id" element={<EditTodoPage />} />
         </Route>
         <Route element={<LoginLayout />}>
           <Route path="login" element={<LoginPage />} />
