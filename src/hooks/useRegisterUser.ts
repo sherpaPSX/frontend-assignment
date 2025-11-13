@@ -7,12 +7,8 @@ export const useRegisterUser = () => {
   const login = useAuthStore((s) => s.login);
   const navigate = useNavigate();
 
-  const register = async (userData: User): Promise<Tokens> => {
-    return UsersService.registerUser(userData);
-  };
-
   return useMutation<Tokens, ApiError, User>({
-    mutationFn: register,
+    mutationFn: UsersService.registerUser,
     onSuccess: (tokens, variables) => {
       login(
         {accessToken: tokens.accessToken, refreshToken: tokens.refreshToken},
