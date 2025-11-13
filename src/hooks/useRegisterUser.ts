@@ -1,21 +1,24 @@
-// src/hooks/useRegisterUser.ts
 import {useMutation} from '@tanstack/react-query';
-import {Tokens, User, UsersService} from '../api';
+import {ApiError, Tokens, User, UsersService} from '../api';
+import {useAuthStore} from '../authStore';
+import {useNavigate} from 'react-router-dom';
 
 export const useRegisterUser = () => {
+  const login = useAuthStore((s) => s.login);
+  const navigate = useNavigate();
+
   const register = async (userData: User): Promise<Tokens> => {
     return UsersService.registerUser(userData);
   };
 
-  const response = useMutation<Tokens, unknown, User>({
+  return useMutation<Tokens, ApiError, User>({
     mutationFn: register,
+    onSuccess: (tokens, variables) => {
+      login(
+        {accessToken: tokens.accessToken, refreshToken: tokens.refreshToken},
+        variables?.username ?? ''
+      );
+      navigate('/');
+    },
   });
-
-  if (response.isSuccess) {
-    const tokens = response.data;
-    localStorage.setItem('accessToken', tokens.accessToken);
-    localStorage.setItem('refreshToken', tokens.refreshToken);
-  }
-
-  return response;
 };

@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route, Navigate, Outlet} from 'react-router-dom';
-import {TodosPage} from './pages';
-import {Layout} from './components';
+import {TodosPage, LoginPage, RegistrationPage} from './pages';
+import {Layout, LoginLayout} from './components';
 import {useAuthStore} from './authStore';
 
 const ProtectedRoute = () => {
@@ -21,8 +21,10 @@ export const AppRouter = () => {
             <Route path="add" element={<div>Add Todo</div>} />
             <Route path="edit/:id" element={<div>Edit Todo</div>} />
           </Route>
-          <Route path="login" element={<div>Login page</div>} />
-          <Route path="register" element={<div>Register</div>} />
+        </Route>
+        <Route element={<LoginLayout />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegistrationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
