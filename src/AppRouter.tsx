@@ -4,8 +4,8 @@ import {Layout} from './components';
 import {useAuthStore} from './authStore';
 
 const ProtectedRoute = () => {
-  const {user} = useAuthStore();
-  if (!user) {
+  const {username} = useAuthStore();
+  if (!username) {
     return <Navigate to="/login" replace />;
   }
   return <Outlet />;

@@ -32,7 +32,7 @@ userRoutes.post('/api/register', (req: Request, res: Response) => {
     const accessToken = signAccessToken(newUser.id, username);
     const refreshToken = signRefreshToken(newUser.id, username);
 
-    res.status(201).json({accessToken, refreshToken});
+    res.status(201).json({accessToken, refreshToken, username});
   });
 });
 
@@ -48,7 +48,7 @@ userRoutes.post('/api/login', (req: Request, res: Response) => {
       const accessToken = signAccessToken(user.id, username);
       const refreshToken = signRefreshToken(user.id, username);
 
-      res.status(200).json({accessToken, refreshToken});
+      res.status(200).json({accessToken, refreshToken, username});
     }
   );
 });
