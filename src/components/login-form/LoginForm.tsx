@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {InputField, PasswordField} from '../../ui';
+import {InputField, PasswordField} from '../ui';
 import {Button, Fieldset} from '@chakra-ui/react';
 import {useForm} from 'react-hook-form';
 import {User} from '../../api';

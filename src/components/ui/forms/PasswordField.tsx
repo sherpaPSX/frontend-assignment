@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {PasswordInput, PasswordInputProps} from '../components/ui/password-input';
+import {PasswordInput, PasswordInputProps} from '../password-input';
 
 import {FieldWrapper, FieldWrapperProps} from './FieldWrapper';
 
