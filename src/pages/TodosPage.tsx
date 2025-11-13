@@ -1,11 +1,12 @@
 import {useGetTodos} from '../hooks';
 import {Button} from '@chakra-ui/react';
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {TodoList} from '../components/todo/TodoList';
+import {AllDoneState} from '../components/todo/AllDoneState';
 
 export const TodosPage = () => {
   const {data, isPending} = useGetTodos();
   const navigate = useNavigate();
-  console.log(data);
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -13,9 +14,7 @@ export const TodosPage = () => {
   return (
     <div>
       <Button onClick={() => navigate('todo/new')}>Add task</Button>
-      {data?.todos.map((todo) => (
-        <Link to={`todo/${todo.id}`}>{todo.title}</Link>
-      ))}
+      {data?.todos ? <TodoList todos={data?.todos} /> : <AllDoneState />}
     </div>
   );
 };
