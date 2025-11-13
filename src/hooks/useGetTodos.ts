@@ -1,9 +1,15 @@
 import {useQuery} from '@tanstack/react-query';
-import {TodosService} from '../api';
+import {TodoResponse, TodosService} from '../api';
+
+interface Response {
+  todos: Array<TodoResponse>;
+}
 
 export const useGetTodos = () => {
   return useQuery({
-    queryFn: TodosService.getTodoList,
+    queryFn: async () => {
+      return (await TodosService.getTodoList()) as unknown as Response;
+    },
     queryKey: ['getTodos'],
   });
 };

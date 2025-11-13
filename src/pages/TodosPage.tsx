@@ -7,5 +7,11 @@ export const TodosPage = () => {
   if (isPending) {
     return <div>Loading...</div>;
   }
-  return <div>Todos Page</div>;
+  return (
+    <div>
+      {data?.todos.map((todo) => (
+        <div>{todo.title}</div>
+      ))}
+    </div>
+  );
 };
