@@ -1,9 +1,9 @@
-import {Avatar, Button, Flex, HStack, Text} from '@chakra-ui/react';
-import {useAuthStore} from '../../authStore';
-import {AppLogo} from './AppLogo';
+import { Avatar, Button, Flex, HStack, Text } from '@chakra-ui/react';
+import { useAuthStore } from '../../authStore';
+import { AppLogo } from './AppLogo';
 
 export const AppHeader = () => {
-  const {username, logout} = useAuthStore();
+  const { username, logout } = useAuthStore();
 
   return (
     <Flex align="center" justify="space-between" mb={4}>

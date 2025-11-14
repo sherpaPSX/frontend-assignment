@@ -1,8 +1,8 @@
 // src/api/apiInit.ts
-import axios, {type AxiosRequestHeaders} from 'axios';
-import {ApiError, OpenAPI, UsersService} from './index';
-import {useAuthStore} from '../authStore';
-import {ApiRequestOptions} from './core/ApiRequestOptions';
+import axios, { AxiosRequestHeaders } from 'axios';
+import { ApiError, OpenAPI, UsersService } from './index';
+import { useAuthStore } from '../authStore';
+import { ApiRequestOptions } from './core/ApiRequestOptions';
 
 export const apiInit = () => {
   // Base URL pro generované služby
@@ -12,7 +12,7 @@ export const apiInit = () => {
 
   // --- Request interceptor ---
   axios.interceptors.request.use((config) => {
-    const {tokens} = useAuthStore.getState();
+    const { tokens } = useAuthStore.getState();
     const isPublic = NON_PROTECTED_PATHS.some((p) => config.url?.includes(p));
 
     if (tokens?.accessToken && !isPublic) {
@@ -35,12 +35,12 @@ export const apiInit = () => {
       if (status === 401 && !originalRequest?._retry && refreshToken) {
         originalRequest._retry = true;
         try {
-          const tokens = await UsersService.refreshToken({refreshToken});
+          const tokens = await UsersService.refreshToken({ refreshToken });
           const accessToken = tokens?.accessToken;
           const usernameToUse = useAuthStore.getState().username ?? '';
 
           if (accessToken && usernameToUse) {
-            useAuthStore.getState().login({accessToken, refreshToken}, usernameToUse);
+            useAuthStore.getState().login({ accessToken, refreshToken }, usernameToUse);
 
             originalRequest.headers = originalRequest.headers || {};
             (originalRequest.headers as AxiosRequestHeaders).Authorization =

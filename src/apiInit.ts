@@ -1,6 +1,6 @@
-import {OpenAPI, UsersService} from './api';
-import axios, {type AxiosRequestHeaders} from 'axios';
-import {useAuthStore} from './authStore';
+import { OpenAPI, UsersService } from './api';
+import axios, { AxiosRequestHeaders } from 'axios';
+import { useAuthStore } from './authStore';
 
 const apiInit = () => {
   OpenAPI.BASE = 'http://localhost:3001';
@@ -15,7 +15,7 @@ const apiInit = () => {
       if (config.headers) {
         (config.headers as AxiosRequestHeaders)['Authorization'] = `Bearer ${tokens.accessToken}`;
       } else {
-        config.headers = {Authorization: `Bearer ${tokens.accessToken}`} as AxiosRequestHeaders;
+        config.headers = { Authorization: `Bearer ${tokens.accessToken}` } as AxiosRequestHeaders;
       }
     }
 
@@ -32,14 +32,14 @@ const apiInit = () => {
       if (status === 401 && !originalRequest?._retry && refreshToken) {
         originalRequest._retry = true;
         try {
-          const tokens = await UsersService.refreshToken({refreshToken});
-          const {accessToken} = tokens;
+          const tokens = await UsersService.refreshToken({ refreshToken });
+          const { accessToken } = tokens;
 
           if (!accessToken) {
             return Promise.reject(error);
           }
           const currentUsername = useAuthStore.getState().username ?? '';
-          useAuthStore.getState().login({refreshToken, accessToken}, currentUsername);
+          useAuthStore.getState().login({ refreshToken, accessToken }, currentUsername);
 
           originalRequest.headers = originalRequest.headers || {};
           (originalRequest.headers as AxiosRequestHeaders)['Authorization'] =
