@@ -1,15 +1,16 @@
 import {FC} from 'react';
 import {InputField, PasswordField} from '../ui';
-import {Button, Fieldset} from '@chakra-ui/react';
+import {Alert, Button, Fieldset} from '@chakra-ui/react';
 import {useForm} from 'react-hook-form';
 import {User} from '../../api';
 
 interface Props {
   onSubmit: (data: User) => Promise<void>;
   isRegistration?: boolean;
+  errorMessage: string | null;
 }
 
-export const LoginForm: FC<Props> = ({onSubmit, isRegistration}) => {
+export const LoginForm: FC<Props> = ({onSubmit, isRegistration, errorMessage}) => {
   const {
     register,
     handleSubmit,
@@ -41,6 +42,12 @@ export const LoginForm: FC<Props> = ({onSubmit, isRegistration}) => {
           errorMessage={errors.password?.message}
         />
 
+        {errorMessage && (
+          <Alert.Root status="error" title={errorMessage} mb={4} p={4}>
+            <Alert.Indicator />
+            <Alert.Title>{errorMessage}</Alert.Title>
+          </Alert.Root>
+        )}
         <Button type="submit" variant="outline" width="full" disabled={isSubmitting}>
           {isRegistration ? 'Register' : 'Login'}
         </Button>
