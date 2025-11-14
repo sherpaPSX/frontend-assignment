@@ -9,10 +9,9 @@ import {ReactComponent as IconCheck} from '../../assets/icons/icon-check.svg';
 interface Props {
   onSubmit: (data: TodoRequest) => Promise<void>;
   data?: TodoRequest;
-  isEdit?: boolean;
 }
 
-export const TodoForm: FC<Props> = ({onSubmit, data, isEdit}) => {
+export const TodoForm: FC<Props> = ({onSubmit, data}) => {
   const navigate = useNavigate();
   const {
     register,
@@ -48,7 +47,7 @@ export const TodoForm: FC<Props> = ({onSubmit, data, isEdit}) => {
           Discard
         </Button>
         <Button type="submit" bg="fill-brand" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
+          {data ? 'Update' : 'Create'}
           <Icon as={IconCheck} color="text-white" />
         </Button>
       </Flex>

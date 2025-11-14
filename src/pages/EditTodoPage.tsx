@@ -24,7 +24,7 @@ export const EditTodoPage: FC = () => {
 
   return (
     <PageCard title={data.title} showBackButton>
-      <TodoForm onSubmit={handleSubmit} data={data} isEdit />
+      <TodoForm onSubmit={handleSubmit} data={data} />
     </PageCard>
   );
 };
