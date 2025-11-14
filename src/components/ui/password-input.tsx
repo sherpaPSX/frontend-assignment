@@ -137,6 +137,12 @@ export const PasswordStrengthMeter = React.forwardRef<HTMLDivElement, PasswordSt
   }
 );
 
+/**
+ * Map a numeric percentage to a strength label and color palette name.
+ *
+ * @param percent - A percentage value (typically 0–100) representing strength.
+ * @returns An object with `label` set to "Low", "Medium", or "High" and `colorPalette` set to "red", "orange", or "green" corresponding to the input percentage.
+ */
 function getColorPalette(percent: number) {
   switch (true) {
     case percent < 33:
