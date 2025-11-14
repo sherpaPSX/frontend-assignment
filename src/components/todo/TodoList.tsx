@@ -3,6 +3,7 @@ import {descend, groupBy, pipe, prop, sort} from 'ramda';
 import {FC} from 'react';
 import {AllDoneState} from './AllDoneState';
 import {TodoGroup} from './TodoGroup';
+import {Flex} from '@chakra-ui/react';
 
 const groupTodos = (todos: TodoResponse[]) => {
   return pipe(
@@ -23,9 +24,9 @@ export const TodoList: FC<Props> = ({todos}) => {
   const {completed, pending} = groupTodos(todos);
 
   return (
-    <>
+    <Flex gap={6} flexDirection="column" gapY="12">
       {pending.length > 0 ? <TodoGroup title="To-do" todos={pending} /> : <AllDoneState />}
       <TodoGroup title="Completed" todos={completed} />
-    </>
+    </Flex>
   );
 };

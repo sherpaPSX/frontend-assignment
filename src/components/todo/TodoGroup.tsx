@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {TodoResponse} from '../../api';
-import {Box, Heading} from '@chakra-ui/react';
+import {Box, Flex, Heading} from '@chakra-ui/react';
 import {TodoListItem} from './TodoListItem';
 
 interface Props {
@@ -20,11 +20,11 @@ export const TodoGroup: FC<Props> = ({title, todos}) => {
           {title}
         </Heading>
       </Box>
-      <Box>
+      <Flex gap={4} direction="column">
         {todos.map((todo) => (
           <TodoListItem {...todo} key={todo.id} />
         ))}
-      </Box>
+      </Flex>
     </Box>
   );
 };
