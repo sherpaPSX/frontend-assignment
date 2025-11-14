@@ -1,15 +1,19 @@
 import {TodoResponse} from '../../api';
-import {Link} from 'react-router-dom';
-import {Box, Checkbox} from '@chakra-ui/react';
 
-export const TodoItem = (todo: TodoResponse) => {
+import {HStack, Text} from '@chakra-ui/react';
+import {CustomCheckbox} from '../ui/CustomCheckbox';
+import {Link, useNavigate} from 'react-router-dom';
+
+export const TodoItem = ({id, title}: TodoResponse) => {
+  const navigate = useNavigate();
   return (
-    <Box>
-      <Checkbox.Root defaultChecked size="lg" borderRadius="md" colorScheme="green">
-        <Checkbox.HiddenInput />
-        <Checkbox.Control />
-      </Checkbox.Root>
-      <Link to={`todo/${todo.id}`}>{todo.title}</Link>;
-    </Box>
+    <HStack>
+      <CustomCheckbox checked={true} onChange={() => navigate(`todo/${id}`)} />
+      <Link to={`todo/${id}/edit`}>
+        <Text fontSize={18} fontWeight="normal">
+          {title}
+        </Text>
+      </Link>
+    </HStack>
   );
 };

@@ -4,8 +4,8 @@ import {AppHeader} from '../app-header/AppHeader';
 
 export const Layout = () => {
   return (
-    <Center marginY="8">
-      <Container maxWidth="3xl">
+    <Center>
+      <Container maxWidth="3xl" padding={2}>
         <Flex direction="column" minH="100vh">
           <AppHeader />
           <Outlet />

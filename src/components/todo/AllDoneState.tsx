@@ -10,8 +10,10 @@ export const AllDoneState = () => {
           <Image src={logo} alt="All done" />
         </EmptyState.Indicator>
         <VStack textAlign="center">
-          <EmptyState.Title>You are amazing!</EmptyState.Title>
-          <EmptyState.Description>There is no more task to do.</EmptyState.Description>
+          <EmptyState.Title fontWeight="bold">You are amazing!</EmptyState.Title>
+          <EmptyState.Description fontSize="sm" color="text-secondary">
+            There is no more task to do.
+          </EmptyState.Description>
         </VStack>
       </EmptyState.Content>
     </EmptyState.Root>

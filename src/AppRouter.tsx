@@ -3,6 +3,7 @@ import {TodosPage, LoginPage, RegistrationPage, EditTodoPage} from './pages';
 import {Layout, LoginLayout} from './components';
 import {useAuthStore} from './authStore';
 import {CreateTodoPage} from './pages/CreateTodoPage';
+import {NotFoundPage} from './pages/NotFoundPage';
 
 const ProtectedRoute = () => {
   const {username, hydrated} = useAuthStore();
@@ -21,7 +22,8 @@ export const AppRouter = () => {
         <Route element={<ProtectedRoute />}>
           <Route index element={<TodosPage />} />
           <Route path="todo/new" element={<CreateTodoPage />} />
-          <Route path="todo/:id" element={<EditTodoPage />} />
+          <Route path="todo/:id/edit" element={<EditTodoPage />} />
+          <Route path="*" element={<NotFoundPage />} /> {/* 404 */}
         </Route>
         <Route element={<LoginLayout />}>
           <Route path="login" element={<LoginPage />} />

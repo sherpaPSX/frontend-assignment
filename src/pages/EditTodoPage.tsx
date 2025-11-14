@@ -2,7 +2,8 @@ import {TodoForm} from '../components/todo-form/TodoForm';
 import {FC} from 'react';
 import {useGetTodoById, useUpdateTodo} from '../hooks';
 import {TodoRequest} from '../api';
-import {useParams} from 'react-router-dom';
+import {Navigate, useParams} from 'react-router-dom';
+import {PageCard} from '../components/ui';
 
 export const EditTodoPage: FC = () => {
   const {id} = useParams<{id: string}>();
@@ -16,5 +17,13 @@ export const EditTodoPage: FC = () => {
   if (isPending) {
     return <div>Loading...</div>;
   }
-  return <TodoForm onSubmit={handleSubmit} data={data} />;
+  if (!data) {
+    return <Navigate to="/" replace />;
+  }
+
+  return (
+    <PageCard title={data.title} navigateBackPath="..">
+      <TodoForm onSubmit={handleSubmit} data={data} />
+    </PageCard>
+  );
 };

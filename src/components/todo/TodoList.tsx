@@ -1,8 +1,8 @@
-import {TodoItem} from './TodoItem';
 import {TodoResponse} from '../../api';
 import {descend, groupBy, pipe, prop, sort} from 'ramda';
 import {FC} from 'react';
 import {AllDoneState} from './AllDoneState';
+import {TodoGroup} from './TodoGroup';
 
 const groupTodos = (todos: TodoResponse[]) => {
   return pipe(
@@ -24,15 +24,8 @@ export const TodoList: FC<Props> = ({todos}) => {
 
   return (
     <>
-      {pending.length > 0 ? (
-        pending.map((todo) => <TodoItem key={todo.id} {...todo} />)
-      ) : (
-        <AllDoneState />
-      )}
-
-      {completed.map((todo) => (
-        <TodoItem key={todo.id} {...todo} />
-      ))}
+      {pending.length > 0 ? <TodoGroup title="To-do" todos={pending} /> : <AllDoneState />}
+      <TodoGroup title="Completed" todos={completed} />
     </>
   );
 };

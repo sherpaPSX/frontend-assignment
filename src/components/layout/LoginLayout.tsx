@@ -5,7 +5,7 @@ import {AppLogo} from '../app-header/AppLogo';
 export const LoginLayout = () => {
   return (
     <Center>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" padding={2}>
         <Flex direction="column">
           <HStack justify="center" my={8} gap={3}>
             <AppLogo />
