@@ -15,8 +15,7 @@ const ProtectedRoute = () => {
   return <Layout />;
 };
 
-export const AppRouter = () => {
-  return (
+export const AppRouter = () => (
     <BrowserRouter>
       <Routes>
         <Route element={<ProtectedRoute />}>
@@ -34,4 +33,3 @@ export const AppRouter = () => {
       </Routes>
     </BrowserRouter>
   );
-};

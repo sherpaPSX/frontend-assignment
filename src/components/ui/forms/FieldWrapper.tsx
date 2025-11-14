@@ -14,8 +14,7 @@ export const FieldWrapper: FC<FieldWrapperProps> = ({
   invalid,
   errorMessage,
   children,
-}) => {
-  return (
+}) => (
     <Field.Root invalid={invalid} required={required} mb={4}>
       {label && (
         <Text fontSize="xs">
@@ -31,4 +30,3 @@ export const FieldWrapper: FC<FieldWrapperProps> = ({
       )}
     </Field.Root>
   );
-};

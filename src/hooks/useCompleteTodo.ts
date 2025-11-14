@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TodosService, TodoResponse } from '../api';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {TodosService, TodoResponse} from '../api';
 
 export const useCompleteTodo = () => {
   const queryClient = useQueryClient();
@@ -7,13 +7,13 @@ export const useCompleteTodo = () => {
   return useMutation({
     mutationFn: TodosService.markTodoComplete,
     onMutate: async (todoId: string) => {
-      await queryClient.cancelQueries({ queryKey: ['todo', todoId] });
+      await queryClient.cancelQueries({queryKey: ['todo', todoId]});
       const previousData = queryClient.getQueryData<TodoResponse>(['todo', todoId]);
       queryClient.setQueryData<TodoResponse>(['todo', todoId], (old) =>
-        old ? { ...old, completed: true } : old
+        old ? {...old, completed: true} : old
       );
 
-      return { previousData };
+      return {previousData};
     },
     onError: (_err, _variables, context) => {
       if (context?.previousData) {
@@ -21,8 +21,8 @@ export const useCompleteTodo = () => {
       }
     },
     onSettled: (_data, _error, todoId: string) => {
-      queryClient.invalidateQueries({ queryKey: ['todo', todoId] });
-      queryClient.invalidateQueries({ queryKey: ['getTodos'] });
+      queryClient.invalidateQueries({queryKey: ['todo', todoId]});
+      queryClient.invalidateQueries({queryKey: ['getTodos']});
     },
   });
 };

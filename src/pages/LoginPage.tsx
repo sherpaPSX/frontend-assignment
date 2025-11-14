@@ -4,8 +4,7 @@ import {PageCard} from '../components/ui';
 import {Text} from '@chakra-ui/react';
 import {Link} from 'react-router-dom';
 
-export const LoginPage: FC = () => {
-  return (
+export const LoginPage: FC = () => (
     <PageCard title="It’s good to have you back!">
       <Text color="text-secondary" mb={6}>
         Welcome to our secure portal! To access the full functionality of our app, kindly provide
@@ -20,4 +19,3 @@ export const LoginPage: FC = () => {
       </Text>
     </PageCard>
   );
-};

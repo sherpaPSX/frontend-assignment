@@ -5,11 +5,7 @@ interface Response {
   todos: Array<TodoResponse>;
 }
 
-export const useGetTodos = () => {
-  return useQuery({
-    queryFn: async () => {
-      return (await TodosService.getTodoList()) as unknown as Response;
-    },
+export const useGetTodos = () => useQuery({
+    queryFn: async () => (await TodosService.getTodoList()) as unknown as Response,
     queryKey: ['getTodos'],
   });
-};

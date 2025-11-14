@@ -2,8 +2,7 @@ import {Center, Container, Flex, HStack} from '@chakra-ui/react';
 import {Outlet} from 'react-router-dom';
 import {AppLogo} from '../app-header/AppLogo';
 
-export const LoginLayout = () => {
-  return (
+export const LoginLayout = () => (
     <Center>
       <Container maxWidth="lg" padding={2}>
         <Flex direction="column">
@@ -15,4 +14,3 @@ export const LoginLayout = () => {
       </Container>
     </Center>
   );
-};

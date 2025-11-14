@@ -10,10 +10,8 @@ export const TextareaField: FC<Props> = ({
   invalid,
   errorMessage,
   ...inputProps
-}) => {
-  return (
+}) => (
     <FieldWrapper invalid={invalid} errorMessage={errorMessage} label={label} required={required}>
       <Textarea {...inputProps} />
     </FieldWrapper>
   );
-};

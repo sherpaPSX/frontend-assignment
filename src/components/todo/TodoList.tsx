@@ -5,8 +5,7 @@ import {AllDoneState} from './AllDoneState';
 import {TodoGroup} from './TodoGroup';
 import {Flex} from '@chakra-ui/react';
 
-const groupTodos = (todos: TodoResponse[]) => {
-  return pipe(
+const groupTodos = (todos: TodoResponse[]) => pipe(
     (list: TodoResponse[]) => sort(descend(prop('createdAt')), list),
     groupBy((todo: TodoResponse) => (todo.completed ? 'completed' : 'pending')),
     (groups) => ({
@@ -14,7 +13,6 @@ const groupTodos = (todos: TodoResponse[]) => {
       pending: groups.pending ?? [],
     })
   )(todos);
-};
 
 interface Props {
   todos: TodoResponse[];

@@ -2,8 +2,7 @@
 import logo from '../../assets/logo.svg';
 import {EmptyState, Image, VStack} from '@chakra-ui/react';
 
-export const AllDoneState = () => {
-  return (
+export const AllDoneState = () => (
     <EmptyState.Root>
       <EmptyState.Content>
         <EmptyState.Indicator>
@@ -18,4 +17,3 @@ export const AllDoneState = () => {
       </EmptyState.Content>
     </EmptyState.Root>
   );
-};

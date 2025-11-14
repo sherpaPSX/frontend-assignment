@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Tokens = {
-    refreshToken: string;
-    accessToken: string;
+  refreshToken: string;
+  accessToken: string;
 };
-

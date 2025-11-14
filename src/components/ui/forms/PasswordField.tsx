@@ -11,10 +11,8 @@ export const PasswordField: FC<Props> = ({
   invalid,
   errorMessage,
   ...inputProps
-}) => {
-  return (
+}) => (
     <FieldWrapper invalid={invalid} errorMessage={errorMessage} label={label} required={required}>
       <PasswordInput {...inputProps} />
     </FieldWrapper>
   );
-};

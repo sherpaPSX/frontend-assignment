@@ -4,8 +4,7 @@ import {Text} from '@chakra-ui/react';
 import {Link} from 'react-router-dom';
 import {RegistrationForm} from '../components';
 
-export const RegistrationPage: FC = () => {
-  return (
+export const RegistrationPage: FC = () => (
     <PageCard title="Create your account">
       <Text color="text-secondary" mb={6}>
         Welcome to our secure portal! To access the full functionality of our app, kindly provide
@@ -20,4 +19,3 @@ export const RegistrationPage: FC = () => {
       </Text>
     </PageCard>
   );
-};

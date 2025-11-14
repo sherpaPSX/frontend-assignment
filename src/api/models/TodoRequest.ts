@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type TodoRequest = {
-    title: string;
-    description: string;
+  title: string;
+  description: string;
 };
-
