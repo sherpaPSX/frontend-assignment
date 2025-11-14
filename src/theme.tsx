@@ -64,10 +64,7 @@ const theme = createSystem(defaultConfig, {
     recipes: {
       button: {
         base: {
-          bg: 'unset',
-          backgroundColor: '#0F62FE',
-          color: '#FFFFFF',
-          borderRadius: '100px',
+          borderRadius: '2rem',
         },
       },
     },

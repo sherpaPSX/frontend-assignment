@@ -1,9 +1,18 @@
 import {Helmet} from 'react-helmet-async';
 import {useTranslation} from 'react-i18next';
-import {Welcome} from './pages/Welcome';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {AppRouter} from './AppRouter';
+import {apiInit} from './api/apiInit';
+import {useEffect} from 'react';
+
+const queryClient = new QueryClient();
 
 function App() {
   const {i18n, t} = useTranslation();
+
+  useEffect(() => {
+    apiInit();
+  }, []);
 
   return (
     <>
@@ -14,11 +23,9 @@ function App() {
       >
         <meta name="description" content={t('app.description')} />
       </Helmet>
-
-      {/*
-       * start from here
-       */}
-      <Welcome />
+      <QueryClientProvider client={queryClient}>
+        <AppRouter />
+      </QueryClientProvider>
     </>
   );
 }

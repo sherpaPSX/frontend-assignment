@@ -13,44 +13,59 @@ import {comparePassword} from '../utils/comparePassword';
 const userRoutes = express.Router();
 
 userRoutes.post('/api/register', (req: Request, res: Response) => {
-  const {password, username} = validateCredentialsFromBody(req, res);
-  const hashedPassword = hashPassword(password);
+  try {
+    const {password, username} = validateCredentialsFromBody(req, res);
+    const hashedPassword = hashPassword(password);
 
-  userDB.findOne({username}, (err: Error | null, user: User) => {
-    if (isNotNil(err)) return res.status(500).json({error: 'Internal server error'});
-    if (isNotNil(user)) return res.status(400).json({error: 'Username is already taken'});
+    userDB.findOne({username}, (err: Error | null, user: User) => {
+      if (isNotNil(err)) {
+        console.error('Database error:', err);
+        return res.status(500).json({error: 'Internal server error'});
+      }
+      if (isNotNil(user)) return res.status(400).json({error: 'Username is already taken'});
 
-    const newUser: User = {
-      id: randomUUID(),
-      createdAt: new Date().toISOString(),
-      username,
-      password: hashedPassword,
-    };
+      const newUser: User = {
+        id: randomUUID(),
+        createdAt: new Date().toISOString(),
+        username,
+        password: hashedPassword,
+      };
 
-    userDB.insert(newUser);
+      userDB.insert(newUser, (insertErr) => {
+        if (insertErr) {
+          console.error('Insert error:', insertErr);
+          return res.status(500).json({error: 'Internal server error'});
+        }
 
-    const accessToken = signAccessToken(newUser.id, username);
-    const refreshToken = signRefreshToken(newUser.id, username);
+        const accessToken = signAccessToken(newUser.id, username);
+        const refreshToken = signRefreshToken(newUser.id, username);
 
-    res.status(201).json({accessToken, refreshToken});
-  });
+        res.status(201).json({accessToken, refreshToken, username});
+      });
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    return res.status(500).json({error: 'Internal server error'});
+  }
 });
 
 userRoutes.post('/api/login', (req: Request, res: Response) => {
   const {password, username} = validateCredentialsFromBody(req, res);
 
-  userDB.findOne(
-    (user: User) => user.username === username && comparePassword(password, user.password),
-    (err: Error | null, user: User | null) => {
-      if (isNotNil(err)) return res.status(500).json({error: 'Internal server error'});
-      if (isNil(user)) return res.status(401).json({error: 'Invalid credential'});
+  userDB.findOne({username}, (err: Error | null, user: User | null) => {
+    if (isNotNil(err)) return res.status(500).json({error: 'Internal server error'});
+    if (isNil(user)) return res.status(401).json({error: 'Invalid credentials'});
 
-      const accessToken = signAccessToken(user.id, username);
-      const refreshToken = signRefreshToken(user.id, username);
-
-      res.status(200).json({accessToken, refreshToken});
+    const isPasswordValid = comparePassword(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({error: 'Invalid credentials'});
     }
-  );
+
+    const accessToken = signAccessToken(user.id, username);
+    const refreshToken = signRefreshToken(user.id, username);
+
+    res.status(200).json({accessToken, refreshToken, username});
+  });
 });
 
 userRoutes.post('/api/refresh-token', (req: Request, res: Response) => {

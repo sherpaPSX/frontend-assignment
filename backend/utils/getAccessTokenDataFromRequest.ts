@@ -1,10 +1,10 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import {isNotNilOrEmpty} from 'ramda-adjunct';
-import {object, string} from 'yup';
+import { isNotNilOrEmpty } from 'ramda-adjunct';
+import { object, string } from 'yup';
 
-export type TokenPayload = {userId: string; username: string};
-type TokenData = {isValid: boolean; data: TokenPayload};
+export type TokenPayload = { userId: string; username: string };
+type TokenData = { isValid: boolean; data: TokenPayload };
 
 export const getAccessTokenDataFromRequest = (req: Request, res: Response): TokenData => {
   try {
@@ -14,9 +14,9 @@ export const getAccessTokenDataFromRequest = (req: Request, res: Response): Toke
     const data = tokenDataSchema.cast(payload);
     const isValid = isNotNilOrEmpty(data);
 
-    return {isValid, data};
-  } catch (error) {
-    throw res.status(401).json({error: 'Unauthorized'});
+    return { isValid, data };
+  } catch {
+    throw res.status(401).json({ error: 'Unauthorized' });
   }
 };
 

@@ -1,0 +1,30 @@
+import {FC} from 'react';
+import {TodoResponse} from '../../api';
+import {Box, Flex, Heading} from '@chakra-ui/react';
+import {TodoListItem} from './TodoListItem';
+
+interface Props {
+  title: string;
+  todos?: Array<TodoResponse>;
+}
+
+export const TodoGroup: FC<Props> = ({title, todos}) => {
+  if (!todos || todos.length === 0) {
+    return null;
+  }
+
+  return (
+    <Box>
+      <Box borderBottom="xs" borderColor="gray.200" mb={4} pb={2}>
+        <Heading size="md" mb={2} fontWeight="bold">
+          {title}
+        </Heading>
+      </Box>
+      <Flex gap={4} direction="column">
+        {todos.map((todo) => (
+          <TodoListItem {...todo} key={todo.id} />
+        ))}
+      </Flex>
+    </Box>
+  );
+};
