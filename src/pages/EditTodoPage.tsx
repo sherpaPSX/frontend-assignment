@@ -22,7 +22,7 @@ export const EditTodoPage: FC = () => {
   }
 
   return (
-    <PageCard title={data.title} navigateBackPath="..">
+    <PageCard title={data.title} navigateBackPath={`todo/${id}`}>
       <TodoForm onSubmit={handleSubmit} data={data} />
     </PageCard>
   );

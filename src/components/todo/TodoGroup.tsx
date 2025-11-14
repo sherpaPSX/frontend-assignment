@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {TodoResponse} from '../../api';
 import {Box, Heading} from '@chakra-ui/react';
-import {TodoItem} from './TodoItem';
+import {TodoListItem} from './TodoListItem';
 
 interface Props {
   title: string;
@@ -22,7 +22,7 @@ export const TodoGroup: FC<Props> = ({title, todos}) => {
       </Box>
       <Box>
         {todos.map((todo) => (
-          <TodoItem {...todo} key={todo.id} />
+          <TodoListItem {...todo} key={todo.id} />
         ))}
       </Box>
     </Box>
