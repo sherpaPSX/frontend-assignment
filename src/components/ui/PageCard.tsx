@@ -1,4 +1,4 @@
-import {Box, Card, Heading, HStack, Icon, IconButton, Text} from '@chakra-ui/react';
+import {Box, Card, Heading, Stack, HStack, Icon, IconButton, Text} from '@chakra-ui/react';
 import {FC, PropsWithChildren, ReactNode} from 'react';
 import {ReactComponent as IconBack} from '../../assets/icons/icon-backwards.svg';
 import {useNavigate} from 'react-router-dom';
@@ -21,7 +21,7 @@ export const PageCard: FC<Props> = ({
   return (
     <Card.Root padding={8} borderRadius={20}>
       <Card.Header marginBottom={6}>
-        <HStack align="top">
+        <Stack align="top" direction={{base: 'column', md: 'row'}}>
           <Box>
             <HStack>
               {navigateBackPath && (
@@ -47,7 +47,7 @@ export const PageCard: FC<Props> = ({
             )}
           </Box>
           {headerButton && <Box marginLeft="auto">{headerButton}</Box>}
-        </HStack>
+        </Stack>
       </Card.Header>
       <Card.Body>{children}</Card.Body>
     </Card.Root>

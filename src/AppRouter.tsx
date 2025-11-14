@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import {TodosPage, LoginPage, RegistrationPage, EditTodoPage} from './pages';
+import {TodosPage, LoginPage, RegistrationPage, EditTodoPage, DetailTodoPage} from './pages';
 import {Layout, LoginLayout} from './components';
 import {useAuthStore} from './authStore';
 import {CreateTodoPage} from './pages/CreateTodoPage';
@@ -22,8 +22,10 @@ export const AppRouter = () => {
         <Route element={<ProtectedRoute />}>
           <Route index element={<TodosPage />} />
           <Route path="todo/new" element={<CreateTodoPage />} />
+          <Route path="todo/:id" element={<DetailTodoPage />} />
           <Route path="todo/:id/edit" element={<EditTodoPage />} />
-          <Route path="*" element={<NotFoundPage />} /> {/* 404 */}
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/404" element={<NotFoundPage />} />
         </Route>
         <Route element={<LoginLayout />}>
           <Route path="login" element={<LoginPage />} />

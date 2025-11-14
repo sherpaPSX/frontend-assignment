@@ -6,3 +6,4 @@ export {useUpdateTodo} from './useUpdateTodo';
 export {useGetTodoById} from './useGetTodoById';
 export {useCompleteTodo} from './useCompleteTodo';
 export {useIncompleteTodo} from './useIncompleteTodo';
+export {useDeleteTodo} from './useDeleteTodo';

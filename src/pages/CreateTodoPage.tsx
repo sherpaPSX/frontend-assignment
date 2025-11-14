@@ -7,10 +7,7 @@ export const CreateTodoPage = () => {
   const {mutateAsync} = useCreateTodo();
 
   const submitHandler = async (values: TodoRequest) => {
-    await mutateAsync({
-      title: values.title,
-      description: 'descr',
-    });
+    await mutateAsync(values);
   };
 
   return (
