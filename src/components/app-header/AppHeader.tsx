@@ -9,11 +9,11 @@ export const AppHeader = () => {
     <Flex align="center" justify="space-between" mb={4}>
       <AppLogo />
 
-      <HStack gap={4}>
+      <HStack gap="2">
         <Avatar.Root colorPalette="blue" size="sm">
           <Avatar.Fallback name={username || ''} />
         </Avatar.Root>
-        <Text fontWeight="semibold" color="text-primary">
+        <Text fontWeight="semibold" color="text-primary" display={{base: 'none', md: 'block'}}>
           {username}
         </Text>
         <Button

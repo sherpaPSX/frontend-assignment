@@ -10,4 +10,8 @@ describe('getFormattedCurrentDate', () => {
   it('allows passing custom locale', () => {
     expect(getFormattedDate(testDate, 'en-US')).toBe('November 20, 2023');
   });
+
+  it('throws for invalid date', () => {
+    expect(() => getFormattedDate(new Date('invalid'))).toThrow('Invalid date provided');
+  });
 });

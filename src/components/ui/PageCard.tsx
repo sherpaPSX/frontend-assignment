@@ -1,4 +1,16 @@
-import {Box, Card, Heading, Stack, HStack, Icon, IconButton, Text} from '@chakra-ui/react';
+import {
+  Box,
+  Card,
+  Heading,
+  Stack,
+  HStack,
+  Icon,
+  IconButton,
+  Text,
+  SkeletonCircle,
+  SkeletonText,
+  Skeleton,
+} from '@chakra-ui/react';
 import {FC, PropsWithChildren, ReactNode} from 'react';
 import {ReactComponent as IconBack} from '../../assets/icons/icon-backwards.svg';
 import {useNavigate} from 'react-router-dom';
@@ -10,10 +22,16 @@ interface Props extends PropsWithChildren {
   headerButton?: ReactNode;
 }
 
-export const PageCard: FC<Props> = ({title, subtitle, showBackButton, headerButton, children}) => {
+export const PageCard: FC<Props> & {Skeleton: FC} = ({
+  title,
+  subtitle,
+  showBackButton,
+  headerButton,
+  children,
+}) => {
   const navigate = useNavigate();
   return (
-    <Card.Root padding={{base: 4, md: 8}} borderRadius={20}>
+    <Card.Root padding={{base: 6, md: 8}} borderRadius={20}>
       <Card.Header marginBottom={6}>
         <Stack align="top" direction={{base: 'column', md: 'row'}} justify="space-between">
           <Box mb={{base: 4, md: 0}}>
@@ -45,5 +63,19 @@ export const PageCard: FC<Props> = ({title, subtitle, showBackButton, headerButt
       </Card.Header>
       <Card.Body>{children}</Card.Body>
     </Card.Root>
+  );
+};
+
+PageCard.Skeleton = () => {
+  return (
+    <PageCard>
+      <Stack gap="6">
+        <HStack width="full">
+          <SkeletonCircle size="10" />
+          <SkeletonText noOfLines={2} />
+        </HStack>
+        <Skeleton height="200px" />
+      </Stack>
+    </PageCard>
   );
 };

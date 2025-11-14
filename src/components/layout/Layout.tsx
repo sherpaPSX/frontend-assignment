@@ -3,12 +3,12 @@ import {Outlet} from 'react-router-dom';
 import {AppHeader} from '../app-header/AppHeader';
 
 export const Layout = () => (
-    <Center>
-      <Container maxWidth="3xl" padding={2}>
-        <Flex direction="column" minH="100vh">
-          <AppHeader />
-          <Outlet />
-        </Flex>
-      </Container>
-    </Center>
-  );
+  <Center paddingTop="2">
+    <Container maxWidth="3xl" padding="2">
+      <Flex direction="column">
+        <AppHeader />
+        <Outlet />
+      </Flex>
+    </Container>
+  </Center>
+);

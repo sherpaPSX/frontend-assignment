@@ -1,5 +1,5 @@
 import {useGetTodos} from '../hooks';
-import {Button, Icon} from '@chakra-ui/react';
+import {Alert, Button, Icon} from '@chakra-ui/react';
 import {useNavigate} from 'react-router-dom';
 import {TodoList} from '../components/todo/TodoList';
 import {AllDoneState} from '../components/todo/AllDoneState';
@@ -10,28 +10,39 @@ import {getFormattedDate} from '../utils';
 
 export const TodosPage = () => {
   const {username} = useAuthStore();
-  const {data, isPending} = useGetTodos();
+  const {data, isPending, error, refetch} = useGetTodos();
   const navigate = useNavigate();
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <PageCard.Skeleton />;
   }
   return (
     <PageCard
       title={`Hello, ${username}!`}
       headerButton={
         <Button
-          onClick={() => navigate('todo/new')}
+          onClick={() => navigate('/todo/new')}
           bg="fill-brand"
           width={{base: 'full', md: 'auto'}}
         >
           Add task
-          <Icon as={IconPlus} boxSize={5} color="text-white" />
+          <Icon as={IconPlus} color="text-white" />
         </Button>
       }
       subtitle={getFormattedDate(new Date())}
     >
       {data?.todos ? <TodoList todos={data?.todos} /> : <AllDoneState />}
+      {error && (
+        <Alert.Root status="error" title={error?.message} px="4" py="2" alignItems="center">
+          <Alert.Indicator />
+          <Alert.Title>
+            Failed to load todos
+            <Button variant="plain" onClick={() => refetch()} ml={2}>
+              Retry
+            </Button>
+          </Alert.Title>
+        </Alert.Root>
+      )}
     </PageCard>
   );
 };

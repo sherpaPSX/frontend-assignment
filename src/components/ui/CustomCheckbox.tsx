@@ -26,6 +26,7 @@ export const CustomCheckbox: FC<Props> = ({checked = false, onCheck}) => {
       borderColor={borderColor}
       bg={bgColor}
       transition="all 0.2s"
+      boxShadow="0 0 0 0 transparent"
       _hover={{
         bg: checked ? 'fill-brand' : 'gray.100',
         boxShadow: checked ? '0 0 0 4px #0F62FE33' : 'none',

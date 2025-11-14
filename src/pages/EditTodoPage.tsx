@@ -15,8 +15,9 @@ export const EditTodoPage: FC = () => {
   };
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <PageCard.Skeleton />;
   }
+
   if (!data) {
     return <Navigate to="/" replace />;
   }

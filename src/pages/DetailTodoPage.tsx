@@ -11,7 +11,7 @@ const CompleteButton: FC<{id: TodoResponse['id']; completed: TodoResponse['compl
   completed,
 }) => {
   const {mutate: mutateComplete, isPending: isCompletePending} = useCompleteTodo();
-  const {mutate: mutateIncomplete, isPending: isIncomepletePending} = useIncompleteTodo();
+  const {mutate: mutateIncomplete, isPending: isIncompletePending} = useIncompleteTodo();
 
   const handleClick = () => {
     if (completed) {
@@ -21,10 +21,15 @@ const CompleteButton: FC<{id: TodoResponse['id']; completed: TodoResponse['compl
     }
   };
 
-  const isPending = isCompletePending || isIncomepletePending;
+  const isPending = isCompletePending || isIncompletePending;
 
   return (
-    <Button onClick={handleClick} bg="fill-brand" disabled={isPending}>
+    <Button
+      onClick={handleClick}
+      bg="fill-brand"
+      disabled={isPending}
+      width={{base: 'full', md: 'auto'}}
+    >
       {completed ? 'Mark as Incomplete' : 'Mark as Complete'}
     </Button>
   );
@@ -33,11 +38,16 @@ const CompleteButton: FC<{id: TodoResponse['id']; completed: TodoResponse['compl
 export const DetailTodoPage: FC = () => {
   const navigate = useNavigate();
   const {id} = useParams<{id: string}>();
-  const {data, isPending} = useGetTodoById(id!);
+
+  if (!id) {
+    return <Navigate to="/404" replace />;
+  }
+
+  const {data, isPending} = useGetTodoById(id);
   const {mutateAsync: deleteTodo, isPending: isDeleting} = useDeleteTodo();
 
   if (isPending) {
-    return <PageCard>Loading...</PageCard>;
+    return <PageCard.Skeleton />;
   }
   if (!data) {
     return <Navigate to="/404" replace />;
@@ -45,8 +55,8 @@ export const DetailTodoPage: FC = () => {
 
   const handleDelete = async () => {
     try {
-      await deleteTodo(id!);
-      return navigate('/');
+      await deleteTodo(id);
+      navigate('/');
     } catch (error) {
       console.error('Error deleting todo:', error);
     }

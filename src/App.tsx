@@ -3,12 +3,16 @@ import {useTranslation} from 'react-i18next';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AppRouter} from './AppRouter';
 import {apiInit} from './api/apiInit';
+import {useEffect} from 'react';
 
-apiInit();
 const queryClient = new QueryClient();
 
 function App() {
   const {i18n, t} = useTranslation();
+
+  useEffect(() => {
+    apiInit();
+  }, []);
 
   return (
     <>

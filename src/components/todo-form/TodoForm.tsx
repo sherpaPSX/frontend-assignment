@@ -23,7 +23,6 @@ export const TodoForm: FC<Props> = ({onSubmit, data, isEdit}) => {
   });
 
   const submitHandler = async (values: TodoRequest) => {
-    console.log('Submitting new todo:', values);
     await onSubmit(values);
   };
 
@@ -42,6 +41,7 @@ export const TodoForm: FC<Props> = ({onSubmit, data, isEdit}) => {
         label="Description"
         invalid={!!errors.description}
         errorMessage={errors.description?.message}
+        minH="120px"
       />
       <Flex justify="space-between">
         <Button variant="subtle" onClick={() => navigate('..')} disabled={isSubmitting}>

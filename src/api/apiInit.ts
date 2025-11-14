@@ -1,16 +1,13 @@
-// src/api/apiInit.ts
 import axios, {AxiosRequestHeaders} from 'axios';
 import {ApiError, OpenAPI, UsersService} from './index';
 import {useAuthStore} from '../authStore';
 import {ApiRequestOptions} from './core/ApiRequestOptions';
 
 export const apiInit = () => {
-  // Base URL pro generované služby
   OpenAPI.BASE = 'http://localhost:3001';
 
   const NON_PROTECTED_PATHS = ['/login', '/register', '/refresh-token'];
 
-  // --- Request interceptor ---
   axios.interceptors.request.use((config) => {
     const {tokens} = useAuthStore.getState();
     const isPublic = NON_PROTECTED_PATHS.some((p) => config.url?.includes(p));
@@ -23,16 +20,15 @@ export const apiInit = () => {
     return config;
   });
 
-  // --- Response interceptor ---
   axios.interceptors.response.use(
     (response) => response,
     async (error) => {
       const originalRequest = error?.config;
       const status = error?.response?.status;
       const refreshToken = useAuthStore.getState().tokens?.refreshToken;
+      const isRefreshRequest = originalRequest?.url?.includes('/refresh-token');
 
-      // --- Refresh token logic ---
-      if (status === 401 && !originalRequest?._retry && refreshToken) {
+      if (status === 401 && !isRefreshRequest && !originalRequest?._retry && refreshToken) {
         originalRequest._retry = true;
         try {
           const tokens = await UsersService.refreshToken({refreshToken});
@@ -57,7 +53,6 @@ export const apiInit = () => {
         }
       }
 
-      // --- Mapování všech chyb na ApiError ---
       const response = error?.response;
       const data = response?.data;
 
