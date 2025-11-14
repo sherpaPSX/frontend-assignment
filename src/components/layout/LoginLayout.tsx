@@ -1,6 +1,6 @@
-import {Center, Container, Flex, HStack, Image, Text} from '@chakra-ui/react';
+import {Center, Container, Flex, HStack} from '@chakra-ui/react';
 import {Outlet} from 'react-router-dom';
-import logo from '../../assets/logo.svg';
+import {AppLogo} from '../app-header/AppLogo';
 
 export const LoginLayout = () => {
   return (
@@ -8,16 +8,7 @@ export const LoginLayout = () => {
       <Container maxWidth="lg">
         <Flex direction="column">
           <HStack justify="center" my={8} gap={3}>
-            <Image
-              src={logo}
-              alt="Zentask logo"
-              boxSize={8}
-              objectFit="contain"
-              objectPosition="center"
-            />
-            <Text fontSize={{base: 'xl', md: '2xl'}} fontWeight="bold" color="text-primary">
-              Zentask
-            </Text>
+            <AppLogo />
           </HStack>
           <Outlet />
         </Flex>

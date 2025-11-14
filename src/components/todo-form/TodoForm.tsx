@@ -1,9 +1,10 @@
 import {useForm} from 'react-hook-form';
 import {TodoRequest} from '../../api';
 import {FC} from 'react';
-import {Button, Flex} from '@chakra-ui/react';
+import {Button, Flex, Icon} from '@chakra-ui/react';
 import {InputField, TextareaField} from '../ui';
 import {useNavigate} from 'react-router-dom';
+import {ReactComponent as IconCheck} from '../../assets/icons/icon-check.svg';
 
 interface Props {
   onSubmit: (data: TodoRequest) => Promise<void>;
@@ -42,11 +43,12 @@ export const TodoForm: FC<Props> = ({onSubmit, data}) => {
         errorMessage={errors.description?.message}
       />
       <Flex justify="space-between">
-        <Button variant="outline" onClick={() => navigate('..')} disabled={isSubmitting}>
+        <Button variant="subtle" onClick={() => navigate('..')} disabled={isSubmitting}>
           Discard
         </Button>
-        <Button type="submit" disabled={isSubmitting}>
-          Save
+        <Button type="submit" bg="fill-brand" disabled={isSubmitting}>
+          Create
+          <Icon as={IconCheck} color="text-white" />
         </Button>
       </Flex>
     </form>

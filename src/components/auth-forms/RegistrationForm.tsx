@@ -71,7 +71,7 @@ export const RegistrationForm: FC = () => {
           </Alert.Root>
         )}
 
-        <Button type="submit" colorPalette="blue" width="full" disabled={isSubmitting}>
+        <Button type="submit" bg="fill-brand" width="full" disabled={isSubmitting}>
           Register
         </Button>
       </Fieldset.Root>

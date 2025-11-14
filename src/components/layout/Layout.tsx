@@ -1,4 +1,4 @@
-import {Box, Center, Container, Flex} from '@chakra-ui/react';
+import {Center, Container, Flex} from '@chakra-ui/react';
 import {Outlet} from 'react-router-dom';
 import {AppHeader} from '../app-header/AppHeader';
 
@@ -8,9 +8,7 @@ export const Layout = () => {
       <Container maxWidth="3xl">
         <Flex direction="column" minH="100vh">
           <AppHeader />
-          <Box height="max" bg="fill-white" p={6}>
-            <Outlet />
-          </Box>
+          <Outlet />
         </Flex>
       </Container>
     </Center>
