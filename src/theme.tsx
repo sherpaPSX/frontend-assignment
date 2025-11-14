@@ -62,7 +62,11 @@ const theme = createSystem(defaultConfig, {
       },
     },
     recipes: {
-      button: {},
+      button: {
+        base: {
+          borderRadius: '2rem',
+        },
+      },
     },
   },
 });

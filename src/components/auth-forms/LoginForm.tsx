@@ -3,26 +3,29 @@ import {InputField, PasswordField} from '../ui';
 import {Alert, Button, Fieldset} from '@chakra-ui/react';
 import {useForm} from 'react-hook-form';
 import {User} from '../../api';
+import {useLogin} from '../../hooks';
 
-interface Props {
-  onSubmit: (data: User) => Promise<void>;
-  isRegistration?: boolean;
-  errorMessage?: string;
-}
-
-export const LoginForm: FC<Props> = ({onSubmit, isRegistration, errorMessage}) => {
+export const LoginForm: FC = () => {
+  const {mutateAsync, error} = useLogin();
   const {
     register,
     handleSubmit,
     formState: {errors, isSubmitting},
   } = useForm<User>();
 
-  const handleFormSubmit = async (data: User) => {
-    await onSubmit(data);
+  const onSubmit = async (data: User): Promise<void> => {
+    try {
+      await mutateAsync({
+        username: data.username,
+        password: data.password,
+      });
+    } catch {
+      console.error('Login failed');
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Fieldset.Root>
         <InputField
           {...register('username', {required: 'Username is required'})}
@@ -42,14 +45,14 @@ export const LoginForm: FC<Props> = ({onSubmit, isRegistration, errorMessage}) =
           errorMessage={errors.password?.message}
         />
 
-        {errorMessage && (
-          <Alert.Root status="error" title={errorMessage} mb={4} p={4}>
+        {error && (
+          <Alert.Root status="error" title={error.message} mb={4} p={4}>
             <Alert.Indicator />
-            <Alert.Title>{errorMessage}</Alert.Title>
+            <Alert.Title>{error.message}</Alert.Title>
           </Alert.Root>
         )}
-        <Button type="submit" variant="outline" width="full" disabled={isSubmitting}>
-          {isRegistration ? 'Register' : 'Login'}
+        <Button type="submit" colorPalette="blue" width="full" disabled={isSubmitting}>
+          Login
         </Button>
       </Fieldset.Root>
     </form>

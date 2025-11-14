@@ -1,20 +1,23 @@
 import {FC} from 'react';
-import {LoginForm} from '../components';
-import {User} from '../api';
-import {useRegisterUser} from '../hooks';
+import {PageCard} from '../components/ui';
+import {Text} from '@chakra-ui/react';
+import {Link} from 'react-router-dom';
+import {RegistrationForm} from '../components';
 
 export const RegistrationPage: FC = () => {
-  const {mutateAsync} = useRegisterUser();
-  const handleSubmit = async (data: User): Promise<void> => {
-    try {
-      await mutateAsync({
-        username: data.username,
-        password: data.password,
-      });
-    } catch {
-      console.error('Registration failed');
-    }
-  };
-
-  return <LoginForm onSubmit={handleSubmit} isRegistration />;
+  return (
+    <PageCard title="Create your account">
+      <Text color="text-secondary" mb={6}>
+        Welcome to our secure portal! To access the full functionality of our app, kindly provide
+        your credentials below. Your privacy is our priority.
+      </Text>
+      <RegistrationForm />
+      <Text fontSize="text.small" color="text-secondary" textAlign="center" mt={4}>
+        Already have an account?{' '}
+        <Link to="/login" color="fill-brand">
+          Login
+        </Link>
+      </Text>
+    </PageCard>
+  );
 };
