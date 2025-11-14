@@ -7,7 +7,7 @@ import {User} from '../../api';
 interface Props {
   onSubmit: (data: User) => Promise<void>;
   isRegistration?: boolean;
-  errorMessage: string | null;
+  errorMessage?: string;
 }
 
 export const LoginForm: FC<Props> = ({onSubmit, isRegistration, errorMessage}) => {

@@ -4,14 +4,17 @@ import {User} from '../api';
 import {useRegisterUser} from '../hooks';
 
 export const RegistrationPage: FC = () => {
-  const {registerUser, errorMessage} = useRegisterUser();
+  const {mutateAsync} = useRegisterUser();
   const handleSubmit = async (data: User): Promise<void> => {
-    console.log('Registration data:', data);
-    await registerUser({
-      username: data.username,
-      password: data.password,
-    });
+    try {
+      await mutateAsync({
+        username: data.username,
+        password: data.password,
+      });
+    } catch {
+      console.error('Registration failed');
+    }
   };
 
-  return <LoginForm onSubmit={handleSubmit} isRegistration errorMessage={errorMessage} />;
+  return <LoginForm onSubmit={handleSubmit} isRegistration />;
 };

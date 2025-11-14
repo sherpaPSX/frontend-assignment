@@ -4,15 +4,17 @@ import {User} from '../api';
 import {useLogin} from '../hooks';
 
 export const LoginPage: FC = () => {
-  const {loginUser, errorMessage} = useLogin();
+  const {mutateAsync, error} = useLogin();
   const handleSubmit = async (data: User): Promise<void> => {
-    await loginUser({
-      username: data.username,
-      password: data.password,
-    });
+    try {
+      await mutateAsync({
+        username: data.username,
+        password: data.password,
+      });
+    } catch {
+      console.error('Login failed');
+    }
   };
 
-  console.log(errorMessage);
-
-  return <LoginForm onSubmit={handleSubmit} errorMessage={errorMessage} />;
+  return <LoginForm onSubmit={handleSubmit} errorMessage={error?.message} />;
 };

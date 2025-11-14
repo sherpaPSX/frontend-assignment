@@ -2,7 +2,7 @@ import {Helmet} from 'react-helmet-async';
 import {useTranslation} from 'react-i18next';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AppRouter} from './AppRouter';
-import apiInit from './apiInit';
+import {apiInit} from './api/apiInit';
 
 apiInit();
 const queryClient = new QueryClient();
