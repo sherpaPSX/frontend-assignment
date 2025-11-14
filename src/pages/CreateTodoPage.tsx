@@ -11,7 +11,7 @@ export const CreateTodoPage = () => {
   };
 
   return (
-    <PageCard title="New task" navigateBackPath="..">
+    <PageCard title="New task" showBackButton>
       <TodoForm onSubmit={submitHandler} />
     </PageCard>
   );

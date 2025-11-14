@@ -6,30 +6,24 @@ import {useNavigate} from 'react-router-dom';
 interface Props extends PropsWithChildren {
   title?: string;
   subtitle?: string;
-  navigateBackPath?: string;
+  showBackButton?: boolean;
   headerButton?: ReactNode;
 }
 
-export const PageCard: FC<Props> = ({
-  title,
-  subtitle,
-  navigateBackPath,
-  headerButton,
-  children,
-}) => {
+export const PageCard: FC<Props> = ({title, subtitle, showBackButton, headerButton, children}) => {
   const navigate = useNavigate();
   return (
-    <Card.Root padding={8} borderRadius={20}>
+    <Card.Root padding={{base: 4, md: 8}} borderRadius={20}>
       <Card.Header marginBottom={6}>
-        <Stack align="top" direction={{base: 'column', md: 'row'}}>
-          <Box>
+        <Stack align="top" direction={{base: 'column', md: 'row'}} justify="space-between">
+          <Box mb={{base: 4, md: 0}}>
             <HStack>
-              {navigateBackPath && (
+              {showBackButton && (
                 <IconButton
                   aria-label="Navigate back"
                   size="xs"
                   bg="fill-gray"
-                  onClick={() => navigate(navigateBackPath)}
+                  onClick={() => navigate(-1)}
                 >
                   <Icon as={IconBack} color="text-primary" />
                 </IconButton>
@@ -46,7 +40,7 @@ export const PageCard: FC<Props> = ({
               </Text>
             )}
           </Box>
-          {headerButton && <Box marginLeft="auto">{headerButton}</Box>}
+          {headerButton && <Box>{headerButton}</Box>}
         </Stack>
       </Card.Header>
       <Card.Body>{children}</Card.Body>

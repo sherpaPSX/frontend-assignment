@@ -20,7 +20,11 @@ export const TodosPage = () => {
     <PageCard
       title={`Hello, ${username}!`}
       headerButton={
-        <Button onClick={() => navigate('todo/new')} bg="fill-brand">
+        <Button
+          onClick={() => navigate('todo/new')}
+          bg="fill-brand"
+          width={{base: 'full', md: 'auto'}}
+        >
           Add task
           <Icon as={IconPlus} boxSize={5} color="text-white" />
         </Button>

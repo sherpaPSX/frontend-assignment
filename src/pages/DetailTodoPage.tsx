@@ -55,7 +55,7 @@ export const DetailTodoPage: FC = () => {
   return (
     <PageCard
       title={data.title}
-      navigateBackPath=".."
+      showBackButton
       headerButton={<CompleteButton id={data.id} completed={data.completed} />}
       subtitle={getFormattedDate(new Date(data.createdAt))}
     >
