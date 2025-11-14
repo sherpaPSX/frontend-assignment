@@ -7,6 +7,11 @@ import {apiInit} from './api/apiInit';
 apiInit();
 const queryClient = new QueryClient();
 
+/**
+ * Root application component that sets the document head and provides React Query context before rendering the router.
+ *
+ * @returns The root JSX element containing a configured `Helmet` and a `QueryClientProvider` that wraps `AppRouter`.
+ */
 function App() {
   const {i18n, t} = useTranslation();
 
