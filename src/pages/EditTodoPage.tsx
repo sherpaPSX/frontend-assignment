@@ -8,13 +8,12 @@ import {PageCard} from '../components/ui';
 export const EditTodoPage: FC = () => {
   const {id} = useParams<{id: string}>();
   const navigate = useNavigate();
+  const {data, isPending} = useGetTodoById(id!);
+  const {mutateAsync} = useUpdateTodo(id!);
 
   if (!id) {
     return <Navigate to="/" replace />;
   }
-
-  const {data, isPending} = useGetTodoById(id);
-  const {mutateAsync} = useUpdateTodo(id);
 
   const handleSubmit = async (data: TodoRequest) => {
     try {
@@ -30,6 +29,7 @@ export const EditTodoPage: FC = () => {
   }
 
   if (!data) {
+    console.error('Todo not found');
     return <Navigate to="/" replace />;
   }
 
